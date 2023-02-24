@@ -1,0 +1,15 @@
+train:
+  batch_size: 2
+  dataaug: true
+  dataset: All
+  encoder: timm-efficientnet-b0
+  epochs: 25
+  final_size: 512
+  gamma: 0.95
+  loss: binarycrossentropy
+  lr: 0.001
+  model_name: unet++
+  nb_classes: 1
+  scheduler: ExponentialLR
+  weights: imagenet
+  working_directory: /workspace/simulations

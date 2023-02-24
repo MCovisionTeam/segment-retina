@@ -1,0 +1,16 @@
+train:
+  dataset : 'All' # 'All', 'HRF', 'CHASE'
+  model_name: 'unet++' # 'unet', 'unet++','fpn' or 'pan'
+  encoder: timm-efficientnet-b0
+  weights: imagenet # 'instagram','imagenet'
+  loss: 'binarycrossentropy'  #  "binarycrossentropy" or "dice" 
+  dataaug : True
+  working_directory : '/workspace/simulations'
+  final_size: 512  
+  nb_classes: 1 # 1
+ epochs: 400
+  lr: 0.00001 
+  gamma : 0.95
+  scheduler : 'ExponentialLR' 
+  batch_size: 2
+
