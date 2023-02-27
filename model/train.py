@@ -129,7 +129,7 @@ def create_model(config):
                                 activation=None,
                                 in_channels=3)
 
-    elif model == 'fpn':
+    elif MODEL == 'fpn':
         print('FPN')
 
         model = smp.FPN(encoder_name=ENCODER,
