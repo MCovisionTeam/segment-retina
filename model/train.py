@@ -139,7 +139,7 @@ def create_model(config):
                         in_channels=3)
 
 
-    MODEL.to(DEVICE)
+    model.to(DEVICE)
 
     if LOSS == 'binarycrossentropy':
 
