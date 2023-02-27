@@ -14,11 +14,11 @@ import torchvision
 import segmentation_models_pytorch as smp
 import argparse
 import yaml
-from utils import RetinaDataset
+from segment_retina.utils import RetinaDataset
 import random
 import sys
 sys.path.append(os.path.dirname(os.getcwd()))
-from utils import plot_pred, create_gif
+from segment_retina.utils import plot_pred, create_gif
 
 
 def parse_args(with_exp_name=False, with_config=True):
