@@ -81,3 +81,28 @@ def create_gif(folder):
     list_path_masks = sorted(glob.glob(folder+'/*.png'))
     images = [imageio.imread(path_mask) for path_mask in list_path_masks]
     imageio.mimsave("animation.gif",images,duration=0.5)
+
+
+def show_images(images, labels, preds, images_path):
+
+    fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(32, 16))
+    
+    for i, (image, mask, image_path) in enumerate(zip(images, labels, images_path)):
+        orig_image = skimage.io.imread(image_path)
+        width, height = orig_image.shape[:2]
+        image = image.numpy().transpose((1, 2, 0))
+        image = cv2.resize(image, dsize=(height,width), interpolation=cv2.INTER_NEAREST)
+        mask = np.expand_dims(mask.numpy(),2)
+        mask = np.repeat(mask,3, axis=2)
+        mask = cv2.resize(mask, dsize=(height,width), interpolation=cv2.INTER_NEAREST)
+
+        axs[0, i].imshow(image)
+        axs[0, i].set_xticks([])
+        axs[0, i].set_yticks([])
+        
+        axs[1, i].imshow(mask)
+        axs[1, i].set_xticks([])
+        axs[1, i].set_yticks([])
+        
+    plt.subplots_adjust(wspace=0, hspace=0)
+    plt.show()
