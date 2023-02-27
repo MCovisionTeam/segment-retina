@@ -52,7 +52,7 @@ def parse_args(with_exp_name=False, with_config=True):
 
 def data_preparation(dataset):
 
-    root = '../../data'
+    root = '/content/drive/MyDrive/Mcovision events/segmentation vaisseaux rétiniens/data/Kaggle_retina_segmentation'
     exts = ('jpg', 'JPG', 'png', 'PNG', 'tif', 'gif', 'ppm')
 
     if dataset == 'CHASE_DB1':
