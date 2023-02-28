@@ -106,3 +106,50 @@ def show_images(images, labels, preds, images_path):
         
     plt.subplots_adjust(wspace=0, hspace=0)
     plt.show()
+
+
+def show_preds(dloader_test, model):
+
+    # fig, axs = plt.subplots(nrows=3, ncols=3, figsize=(32, 16))
+    
+    for i, (image, mask, image_path) in enumerate(dloader_test):
+
+        image_path = image_path[0]
+        orig_image = skimage.io.imread(image_path)
+        print(orig_image.shape)
+
+        output = model(image.to(DEVICE)) 
+        output = (output>0.5)*1.0
+        output = output.squeeze(0).detach().cpu().numpy()
+        output = output[0,0,:,:]
+        output = cv2.resize(output, dsize=(orig_image.shape[1],orig_image.shape[0]), interpolation=cv2.INTER_NEAREST)
+        output = np.expand_dims(output,2)
+        output = np.repeat(output,3, axis=2)
+
+        mask = np.array(mask[0,:,:])
+        mask = cv2.resize(mask, dsize=(orig_image.shape[1],orig_image.shape[0]), interpolation=cv2.INTER_NEAREST)
+        mask = np.expand_dims(mask,2)
+        mask = np.repeat(mask,3, axis=2)
+
+
+        image = image[0,:,:,:]
+        image = image.numpy().transpose((1, 2, 0))
+        image = cv2.resize(image, dsize=(orig_image.shape[1],orig_image.shape[0]), interpolation=cv2.INTER_NEAREST)
+
+        plt.figure(figsize=(15,15))
+        plt.imshow(image)
+        plt.title(os.path.basename(image_path))
+        plt.axis('off')
+
+        plt.figure(figsize=(15,15))
+        plt.imshow(mask)
+        plt.title('GROUND TRUTH')
+        plt.axis('off')
+
+        plt.figure(figsize=(15,15))
+        plt.imshow(output)
+        plt.title('PREDICTION')
+        plt.axis('off')
+
+        break
+            
